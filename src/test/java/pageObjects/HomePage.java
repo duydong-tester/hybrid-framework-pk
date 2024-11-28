@@ -18,12 +18,19 @@ public class HomePage extends BasePage {
 	@FindBy(xpath = "//ul[contains(@class,'dropdown-menu')]//a[text()='Register']")
 	private WebElement registerLink;
 
+	@FindBy(xpath = "//ul[contains(@class,'dropdown-menu')]//a[text()='Login']")
+	private WebElement loginLink;
+
 	public void clickMyAccountHeaderDropdown() {
 		myAccountHeaderDropdown.click();
 	}
 
 	public void clickRegisterLink() {
 		registerLink.click();
+	}
+
+	public void clickLoginLink() {
+		loginLink.click();
 	}
 
 }

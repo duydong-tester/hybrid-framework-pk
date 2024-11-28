@@ -1,6 +1,9 @@
 package commons;
 
+import java.io.FileReader;
+import java.io.IOException;
 import java.time.Duration;
+import java.util.Properties;
 import java.util.Random;
 
 import org.apache.logging.log4j.LogManager;
@@ -16,10 +19,19 @@ import org.testng.annotations.Parameters;
 public class BaseTest {
 	protected WebDriver driver;
 	protected Logger log = LogManager.getLogger(this.getClass());
+	protected Properties properties;
 
 	@Parameters("browser")
 	@BeforeClass
 	protected void beforeClass(String browserName) {
+		try {
+			FileReader file = new FileReader(".\\src\\test\\resources\\config.properties");
+			properties = new Properties();
+			properties.load(file);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
 		switch (browserName) {
 		case "chrome":
 			driver = new ChromeDriver();
@@ -37,7 +49,7 @@ public class BaseTest {
 		}
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
 		driver.manage().window().maximize();
-		driver.get("http://localhost/opencart/upload/");
+		driver.get(properties.getProperty("portalSiteUrl"));
 		log.info("----------[Run test on " + browserName.toUpperCase() + "]----------");
 	}
 

@@ -15,7 +15,7 @@ import org.testng.annotations.Parameters;
 
 public class BaseTest {
 	protected WebDriver driver;
-	protected Logger log;
+	protected Logger log = LogManager.getLogger(this.getClass());
 
 	@Parameters("browser")
 	@BeforeClass
@@ -38,7 +38,7 @@ public class BaseTest {
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
 		driver.manage().window().maximize();
 		driver.get("http://localhost/opencart/upload/");
-		log = LogManager.getLogger(this.getClass());
+		log.info("----------[Run test on " + browserName.toUpperCase() + "]----------");
 	}
 
 	@AfterClass
